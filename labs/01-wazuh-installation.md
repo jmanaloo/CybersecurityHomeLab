@@ -62,7 +62,7 @@ Active: active (running)
 Open Windows Command Prompt:
 
 ```cmd
-ping 192.168.17.130
+ping (Your IP)
 ```
 
 Tests network connectivity between the Windows host and Wazuh VM.
@@ -70,7 +70,7 @@ Tests network connectivity between the Windows host and Wazuh VM.
 Open PowerShell:
 
 ```powershell
-Test-NetConnection 192.168.17.130 -Port 443
+Test-NetConnection (Your IP) -Port 443
 ```
 
 Tests access to the Wazuh dashboard's HTTPS port.
@@ -160,7 +160,7 @@ This confirmed that the web server was responding.
 From the Windows host, open:
 
 ```text
-https://192.168.17.130
+https://(Your IP)
 ```
 
 A self-signed certificate warning may appear in the browser.
@@ -199,7 +199,7 @@ From the Wazuh dashboard:
 
 1. Navigate to **Deploy new agent**.
 2. Select **Windows MSI 32/64 bits**.
-3. Enter the Wazuh Manager IP: `192.168.17.130`.
+3. Enter the Wazuh Manager IP: `(Your IP)`.
 4. Assign a unique agent name, such as `WinServer-Lab`.
 5. Copy the generated PowerShell installation command.
 6. Run it as Administrator on the Windows machine being monitored.
@@ -219,8 +219,8 @@ Get-Service WazuhSvc
 Test connectivity to the manager:
 
 ```powershell
-Test-NetConnection 192.168.17.130 -Port 1514
-Test-NetConnection 192.168.17.130 -Port 1515
+Test-NetConnection (Your IP) -Port 1514
+Test-NetConnection (Your IP) -Port 1515
 ```
 
 **Status:** Agent deployment is the next lab activity. These commands have not yet been verified in our session.
