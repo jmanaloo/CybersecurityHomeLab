@@ -50,7 +50,7 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 
 I aim to record the **objective, environment, steps performed, observed evidence, troubleshooting, analyst interpretation, and lessons learned**. I also distinguish controlled test activity from actual malicious behavior.
 
-This is an ongoing learning portfolio. The work here reflects **hands-on training and personal lab practice, not professional SOC employment**.
+**Career objective:** Transition into a SOC Analyst L1 role by combining professional experience in real-time monitoring, incident escalation, root-cause analysis, and documentation with practical cybersecurity skills developed through hands-on security investigations and home-lab projects.
 
 ## Personal note
 
