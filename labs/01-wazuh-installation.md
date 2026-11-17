@@ -1,7 +1,7 @@
-## Cybersecurity Hands-on Labs
+# Lab 01 — Wazuh Dashboard Access and Troubleshooting
 
-### SIEM & Security Monitoring
-- [Lab 01: Wazuh SIEM Installation and Troubleshooting](labs/01-wazuh-installation.md)
+**Status:** Completed — dashboard access restored and login verified  
+**Scope:** Troubleshooting an existing Wazuh installation; not a fresh installation from scratch
 
 ## Lab Overview
 
@@ -22,6 +22,10 @@
 | Windows Host | Windows 11 |
 
 **Note:** This documents troubleshooting an existing Wazuh installation, not the original installation commands. For a fresh deployment, first import the official Wazuh virtual appliance or follow the official installation guide.
+
+## Command reference — purpose and verification
+
+Commands below are shown in separate code blocks with their purpose and observed results in the corresponding sections. **Run commands on the specified host**; `firewall-cmd` changes were made on the isolated Rocky Linux VM. A successful dashboard login was verified after HTTPS was permitted.
 
 ## 1. Verify Linux OS and IP Address
 
@@ -62,7 +66,7 @@ Active: active (running)
 Open Windows Command Prompt:
 
 ```cmd
-ping (Your IP)
+ping 192.168.17.130
 ```
 
 Tests network connectivity between the Windows host and Wazuh VM.
@@ -70,7 +74,7 @@ Tests network connectivity between the Windows host and Wazuh VM.
 Open PowerShell:
 
 ```powershell
-Test-NetConnection (Your IP) -Port 443
+Test-NetConnection 192.168.17.130 -Port 443
 ```
 
 Tests access to the Wazuh dashboard's HTTPS port.
@@ -160,7 +164,7 @@ This confirmed that the web server was responding.
 From the Windows host, open:
 
 ```text
-https://(Your IP)
+https://192.168.17.130
 ```
 
 A self-signed certificate warning may appear in the browser.
@@ -193,13 +197,13 @@ Find the generated password associated with the `admin` account.
 
 **Result:** Successfully logged into the Wazuh dashboard.
 
-## 9. Prepare Windows Agent Deployment
+## 9. Windows Agent Deployment — Subsequent Lab
 
 From the Wazuh dashboard:
 
 1. Navigate to **Deploy new agent**.
 2. Select **Windows MSI 32/64 bits**.
-3. Enter the Wazuh Manager IP: `(Your IP)`.
+3. Enter the Wazuh Manager IP: `192.168.17.130`.
 4. Assign a unique agent name, such as `WinServer-Lab`.
 5. Copy the generated PowerShell installation command.
 6. Run it as Administrator on the Windows machine being monitored.
@@ -219,11 +223,11 @@ Get-Service WazuhSvc
 Test connectivity to the manager:
 
 ```powershell
-Test-NetConnection (Your IP) -Port 1514
-Test-NetConnection (Your IP) -Port 1515
+Test-NetConnection 192.168.17.130 -Port 1514
+Test-NetConnection 192.168.17.130 -Port 1515
 ```
 
-**Status:** Agent deployment is the next lab activity. These commands have not yet been verified in our session.
+**Historical scope:** At the end of Lab 01, agent deployment was pending. It was subsequently completed and verified in [Lab 02](02-windows-server-wazuh-agent.md). The examples above are preparatory steps, not evidence that Lab 01 performed deployment.
 
 ## Key Lessons Learned
 
@@ -244,12 +248,17 @@ Test-NetConnection (Your IP) -Port 1515
 - [x] Configure Rocky Linux firewall
 - [x] Access Wazuh dashboard
 - [x] Log in to Wazuh
-- [ ] Install Windows Wazuh agent
-- [ ] Verify agent enrollment
-- [ ] Generate and investigate security alerts
+- [x] Install Windows Wazuh agent — **completed later in Lab 02**
+- [x] Verify agent enrollment — **completed later in Lab 02**
+- [x] Generate and investigate security alerts — **completed later in Labs 03–05**
+
+## SOC analyst takeaway
+
+**Observed issue:** ICMP ping worked, but HTTPS access failed. **Resolution:** Investigated the dashboard listener and Rocky Linux firewall, permitted HTTPS, and confirmed the dashboard login page responded. A successful ping does not prove TCP application access.
 
 ## References
 
 - [Wazuh Documentation](https://documentation.wazuh.com/current/)
 - [Wazuh Virtual Machine Deployment](https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html)
-- [Wazuh Agent Deployment](https://documentation.wazuh.com
+- [Wazuh Agent Deployment](https://documentation.wazuh.com/current/installation-guide/wazuh-agent/wazuh-agent-package-windows.html)
+
