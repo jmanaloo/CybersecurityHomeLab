@@ -27,6 +27,13 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [02 — Windows Server Wazuh Agent](labs/02-windows-server-wazuh-agent.md) | Endpoint monitoring | Setting up a Windows Server endpoint and connecting its agent |
 | [03 — Failed Login Investigation](labs/03-wazuh-failed-login-investigation.md) | Authentication alert triage | Generating an authorized failed login, finding Windows Event ID 4625 in Wazuh, and documenting why the activity was benign |
 | [04 — File Integrity Monitoring](labs/04-wazuh-file-integrity-monitoring.md) | FIM and troubleshooting | Restoring agent communication, correcting monitoring configuration, and validating file creation, modification, and deletion alerts |
+| [05 — PowerShell Monitoring and Detection](labs/05-wazuh-powershell-detection.md) | Windows event collection and alert triage | Enabling Event ID 4104 logging, tracing raw events, inspecting built-in rules, and validating three benign test alerts |
+
+## Featured investigation: PowerShell detection and alert triage
+
+In [Lab 05](labs/05-wazuh-powershell-detection.md), I enabled PowerShell Script Block Logging, configured the Wazuh agent to collect Windows Event ID **4104**, and traced an authorized test from Windows into Wazuh's raw archives. I then tested an existing detection rule (**91843**) using a harmless string assignment and confirmed **three alerts** in Threat Hunting.
+
+**Key lesson:** Collecting an event is different from generating an alert, and a correct pattern match does not prove that a registry change or malicious action occurred.
 
 ## Featured investigation: Wazuh File Integrity Monitoring
 
@@ -39,7 +46,7 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 ## Skills I'm developing
 
 - Security event monitoring and basic alert triage
-- Windows Security event investigation, including Event ID 4625
+- Windows Security and PowerShell event investigation, including Event IDs 4625 and 4104
 - Wazuh agent configuration and File Integrity Monitoring
 - Windows and Linux troubleshooting
 - Network/service diagnostics and log review
@@ -48,7 +55,7 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 
 ## How I document each lab
 
-I aim to record the **objective, environment, steps performed, observed evidence, troubleshooting, analyst interpretation, and lessons learned**. I also distinguish controlled test activity from actual malicious behavior.
+Each lab records the **objective, environment and parameters, emphasized commands with short explanations, observed evidence, troubleshooting and resolution, validation checks, analyst interpretation, and lessons learned**. I distinguish controlled test activity from actual malicious behavior and identify later milestones separately from the original lab scope.
 
 **Career objective:** Transition into a SOC Analyst L1 role by combining professional experience in real-time monitoring, incident escalation, root-cause analysis, and documentation with practical cybersecurity skills developed through hands-on security investigations and home-lab projects.
 
