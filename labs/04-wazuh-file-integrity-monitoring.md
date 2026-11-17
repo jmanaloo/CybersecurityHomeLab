@@ -20,6 +20,59 @@ Configure real-time File Integrity Monitoring (FIM) on a Windows Server endpoint
 
 > The addresses above belong to an isolated VMware home-lab network. No production systems were involved.
 
+## Command reference — commands used and why
+
+The commands below are highlighted for reproducibility. Each explanation states what was checked or changed during the lab.
+
+**Command: Restart the Windows Wazuh agent after saving FIM configuration**
+
+```powershell
+Restart-Service -Name WazuhSvc
+```
+
+*Purpose:* Reloads the Windows agent configuration so the real-time monitoring entry can take effect.
+
+**Command: Check whether the Wazuh manager service is running**
+
+```bash
+systemctl status wazuh-manager
+```
+
+*Purpose:* Checks the Linux service state; an active service alone does not guarantee that TCP 1514 is listening.
+
+**Command: Inspect the agent communication listener**
+
+```bash
+ss -lntp | grep 1514
+```
+
+*Purpose:* Checks for a TCP listener on port 1514, used for normal Wazuh agent communication.
+
+**Command: Inspect Wazuh listening sockets**
+
+```bash
+ss -lntup | grep wazuh
+```
+
+*Purpose:* Helps distinguish the enrollment listener on TCP 1515 from the normal agent communication listener on TCP 1514.
+
+**Command: Check the remoted process**
+
+```bash
+ps -ef | grep '[w]azuh-remoted'
+```
+
+*Purpose:* Checks whether the process responsible for agent communications is actually running.
+
+**Command: Stop and restart the manager during recovery**
+
+```bash
+systemctl stop wazuh-manager
+systemctl start wazuh-manager
+```
+
+*Purpose:* Restarts the manager components after verifying the service state and investigating the suspected stale PID record. No unrelated process or PID file was manually removed.
+
 ## Configuration
 
 1. Backed up the Windows agent configuration file `C:\Program Files (x86)\ossec-agent\ossec.conf`.
