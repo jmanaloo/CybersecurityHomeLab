@@ -26,6 +26,54 @@ Add a Windows Server 2022 endpoint to an existing Wazuh SIEM lab in VMware Works
 
 > **Note:** IP addresses were assigned in this lab and may differ after restarting the VMs. Replace them with your actual addresses when reproducing the steps.
 
+## Command reference — commands and short explanations
+
+**Command: Identify Windows network configuration**
+
+```powershell
+ipconfig
+```
+
+*Purpose:* Shows the endpoint's IP address, subnet mask, and gateway.
+
+**Command: Check connectivity to the manager**
+
+```powershell
+ping 192.168.17.130
+Test-NetConnection 192.168.17.130 -Port 1514
+Test-NetConnection 192.168.17.130 -Port 1515
+```
+
+*Purpose:* Separates basic IP reachability from TCP agent communication and enrollment connectivity.
+
+**Command: Check manager listening port**
+
+```bash
+ss -tlnp | grep ':1514'
+```
+
+*Purpose:* Checks whether the manager is listening on TCP 1514.
+
+**Command: Inspect and update the Rocky Linux firewall**
+
+```bash
+firewall-cmd --list-ports
+firewall-cmd --permanent --zone=public --add-port=1514/tcp
+firewall-cmd --permanent --zone=public --add-port=1515/tcp
+firewall-cmd --reload
+```
+
+*Purpose:* Reviews explicitly opened ports, permits Wazuh communication and enrollment in the isolated lab, and reloads the rules. These are broad lab-only allowances, not production firewall recommendations.
+
+**Command: Check and start the Windows agent**
+
+```powershell
+Get-Service WazuhSvc
+Start-Service WazuhSvc
+```
+
+*Purpose:* Verifies the Windows agent service exists and starts it if stopped. Confirm connectivity separately in Wazuh.
+
 ## 1. Install Windows Server 2022 in VMware
 
 1. Create or open the Windows Server virtual machine in VMware Workstation Pro.
@@ -224,7 +272,7 @@ Get-Service WazuhSvc
 - [x] Install the Windows Wazuh agent
 - [x] Start and verify the Wazuh Windows service
 - [x] Confirm the agent is **Active** in the Wazuh dashboard
-- [ ] Generate and investigate a Windows security alert (future lab)
+- [x] Generate and investigate a Windows security alert — **completed later in Lab 03**
 
 ## Next lab
 
