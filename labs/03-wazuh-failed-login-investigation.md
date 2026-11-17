@@ -12,6 +12,32 @@ Simulate one authorized failed login on a Windows Server endpoint, verify the Wi
 
 This exercise was performed only on my own isolated Windows Server lab VM. No production accounts or systems were targeted.
 
+## Command reference — commands and short explanations
+
+**Command: Generate one controlled failed login**
+
+```powershell
+runas /user:Administrator cmd
+```
+
+*Purpose:* Prompts for credentials; an intentionally incorrect password in the isolated lab generates a failed authentication event without a successful logon.
+
+**Command: Open Windows Event Viewer**
+
+```text
+eventvwr.msc
+```
+
+*Purpose:* Opens Windows event logs to inspect Security Event ID 4625.
+
+**Wazuh query: Find failed authentication events**
+
+```text
+data.win.system.eventID:4625
+```
+
+*Purpose:* Filters the analyst dashboard to Windows failed-logon events. Verify the agent, timestamp, and username before attributing an alert to the test.
+
 ## Step 1 — Generate a failed authentication attempt
 
 Open PowerShell inside the **Windows Server 2022** VM and run:
@@ -83,6 +109,13 @@ The following values were verified in the Wazuh event details:
 - Reading `rule.description`, `rule.level`, and targeted username
 - Distinguishing a detected event from a confirmed security incident
 - Writing a concise SOC investigation summary
+
+## Validation checklist
+
+- [x] Generated one authorized failed login
+- [x] Confirmed Windows Event ID `4625`
+- [x] Found the corresponding Wazuh alert (rule level `5`)
+- [x] Recorded benign test disposition without assuming an attack
 
 ## Next lab
 
