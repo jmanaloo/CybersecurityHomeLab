@@ -29,6 +29,14 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [04 — File Integrity Monitoring](labs/04-wazuh-file-integrity-monitoring.md) | FIM and troubleshooting | Restoring agent communication, correcting monitoring configuration, and validating file creation, modification, and deletion alerts |
 | [05 — PowerShell Monitoring and Detection](labs/05-wazuh-powershell-detection.md) | Windows event collection and alert triage | Enabling Event ID 4104 logging, tracing raw events, inspecting built-in rules, and validating three benign test alerts |
 
+| [06 — Active Directory IAM Monitoring](labs/06-active-directory-iam-monitoring.md) | Identity management and SIEM detection | Deploying a domain controller, auditing user/group changes, and verifying Wazuh detections for Events 4720 and 4728 |
+
+## Featured investigation: Active Directory identity monitoring
+
+In [Lab 06](labs/06-active-directory-iam-monitoring.md), I deployed a Windows Server 2022 domain controller, created domain users and a security group, and investigated Windows Security Events **4720, 4727, and 4728**. After onboarding the domain controller as Wazuh agent **004**, I verified a new account creation alert (**rule 60109, level 8**) and a group membership change alert (**rule 60141, level 5**).
+
+**Key lesson:** The actor, target identity, and group must be verified from event fields. An alert severity or MITRE ATT&CK mapping does not prove malicious behavior or privilege escalation.
+
 ## Featured investigation: PowerShell detection and alert triage
 
 In [Lab 05](labs/05-wazuh-powershell-detection.md), I enabled PowerShell Script Block Logging, configured the Wazuh agent to collect Windows Event ID **4104**, and traced an authorized test from Windows into Wazuh's raw archives. I then tested an existing detection rule (**91843**) using a harmless string assignment and confirmed **three alerts** in Threat Hunting.
@@ -46,7 +54,8 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 ## Skills I'm developing
 
 - Security event monitoring and basic alert triage
-- Windows Security and PowerShell event investigation, including Event IDs 4625 and 4104
+- Windows Security and PowerShell event investigation, including Event IDs 4625, 4104, 4720, 4727, and 4728
+- Active Directory IAM, Windows account/group auditing, and SIEM correlation
 - Wazuh agent configuration and File Integrity Monitoring
 - Windows and Linux troubleshooting
 - Network/service diagnostics and log review
