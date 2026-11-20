@@ -156,4 +156,105 @@ Repeated the access attempt and confirmed that Windows generated Event ID **5145
 |---|---|
 | Account | `CORP\anna` |
 | Target share | `\\*\Finance` |
-|
+| Share path | `C:\DepartmentShares\Finance` |
+| Relative target | `\` (share root) |
+| Access mask | `0x100080` |
+| Requested permissions | SYNCHRONIZE, ReadAttributes |
+| Access check | Both permissions not granted |
+| Audit result | Failure |
+
+The Windows event identified `CORP\anna` as the network account, despite `whoami` in the `runas /netonly` Command Prompt reporting the local identity `CORP\administrator`.
+
+## 6. Wazuh SIEM Investigation
+
+Verified that the Wazuh Manager was running and the domain controller's agent was connected:
+
+```bash
+sudo systemctl status wazuh-manager
+sudo /var/ossec/bin/agent_control -l
+```
+
+The agent appeared as `004 — AD-DC01 — Active`. However, the initial Threat Hunting search for `data.win.system.eventID: "5145"` returned no matching alerts.
+
+### Troubleshooting the Monitoring Gap
+
+Checked raw-event archiving in the Wazuh Manager configuration:
+
+```xml
+<logall>no</logall>
+<logall_json>no</logall_json>
+```
+
+Because raw-event archiving was disabled, the absence of a match in `archives.json` could not establish whether the manager had received Event 5145.
+
+Inspected the Windows agent's `C:\Program Files (x86)\ossec-agent\ossec.conf` Security event-channel query and found an exclusion:
+
+```text
+EventID != 5145
+```
+
+Backed up the configuration, removed **only** the Event 5145 exclusion while preserving the other filters, and restarted the Windows agent:
+
+```powershell
+Restart-Service -Name WazuhSvc
+Get-Service -Name WazuhSvc
+```
+
+The agent returned to the Running state. A fresh controlled Finance-share access attempt was then generated.
+
+## 7. Wazuh Detection Verified
+
+Wazuh Threat Hunting subsequently displayed an alert for the expected Windows Security event.
+
+| Field | Verified finding |
+|---|---|
+| Agent | `AD-DC01` |
+| Agent ID | `004` |
+| Windows Event ID | `5145` |
+| Account | `CORP\anna` |
+| Share | Finance |
+| Audit result | `AUDIT_FAILURE` |
+| Wazuh rule ID | `60104` |
+| Rule description | Windows audit failure event |
+| Rule level | `5` |
+
+The expanded Wazuh event contained the account, Finance share path, Event ID 5145, and audit-failure status. This confirmed that the revised collection configuration allowed the event to reach Wazuh and match an existing alert rule.
+
+**Detection limitation:** Rule 60104 is a general Windows audit-failure rule, not a custom Finance-share access rule.
+
+## 8. Analyst Assessment
+
+**Finding:** An HR account attempted to access the Finance share without the required permissions.
+
+**Access-control outcome:** Windows denied the requested access, consistent with the configured departmental permissions.
+
+**Monitoring outcome:** Event 5145 was recorded locally and subsequently visible as a Wazuh alert after the collection filter was corrected.
+
+**Disposition:** Authorized, controlled home-lab test. This was not a production security incident. In a real SOC, business justification, user activity, frequency, and surrounding authentication events would need to be evaluated before escalation.
+
+## 9. Lessons Learned
+
+1. RBAC and least privilege are easier to manage through departmental security groups.
+2. NTFS and SMB permissions must both be validated; an incorrect share path can expose unintended directory names.
+3. Effective Access calculations are useful but do not replace real access tests.
+4. Windows auditing must be enabled to generate the desired security events.
+5. A connected Wazuh agent does not guarantee every event is collected.
+6. Event filters can suppress important evidence before it reaches the SIEM.
+7. Raw-event archiving, alert generation, and incident classification are distinct concepts.
+8. A security alert requires context before it can be classified as an incident.
+
+## 10. Evidence Screenshots
+
+Screenshots captured during this lab include the department OUs, NTFS and SMB permissions, Effective Access results, Windows Event 5145, and the Wazuh audit-failure alert.
+
+Image references will be added here once the evidence files are uploaded to `labs/07-evidence/`. This section intentionally does not link to files that have not yet been verified in the repository.
+
+## Conclusion
+
+This isolated lab combined Active Directory RBAC, least-privilege file sharing, Windows auditing, and Wazuh SIEM monitoring. It included practical troubleshooting of an incorrect share path, missing auditing policy, and a Windows event collection exclusion.
+
+**Skills practiced:** Active Directory, RBAC, NTFS permissions, SMB shares, Windows Security auditing, Event ID 5145, Wazuh SIEM, alert triage, and evidence-based troubleshooting.
+
+---
+
+*All activity was performed in an authorized home-lab environment for cybersecurity learning and portfolio development.*
