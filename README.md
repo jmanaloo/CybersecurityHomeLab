@@ -28,8 +28,14 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [03 — Failed Login Investigation](labs/03-wazuh-failed-login-investigation.md) | Authentication alert triage | Generating an authorized failed login, finding Windows Event ID 4625 in Wazuh, and documenting why the activity was benign |
 | [04 — File Integrity Monitoring](labs/04-wazuh-file-integrity-monitoring.md) | FIM and troubleshooting | Restoring agent communication, correcting monitoring configuration, and validating file creation, modification, and deletion alerts |
 | [05 — PowerShell Monitoring and Detection](labs/05-wazuh-powershell-detection.md) | Windows event collection and alert triage | Enabling Event ID 4104 logging, tracing raw events, inspecting built-in rules, and validating three benign test alerts |
-
 | [06 — Active Directory IAM Monitoring](labs/06-active-directory-iam-monitoring.md) | Identity management and SIEM detection | Deploying a domain controller, auditing user/group changes, and verifying Wazuh detections for Events 4720 and 4728 |
+| [07 — AD RBAC & File Share Monitoring](labs/07-active-directory-rbac-file-share-monitoring.md) | Access control and SIEM investigation | Restricting departmental SMB shares, investigating Event 5145, and fixing a Wazuh collection exclusion |
+
+## Featured investigation: File share access monitoring
+
+In [Lab 07](labs/07-active-directory-rbac-file-share-monitoring.md), I configured department-specific NTFS and SMB permissions, verified authorized and restricted access, and investigated a controlled denied attempt against the Finance share. I enabled Detailed File Share auditing, traced Windows Event **5145**, and resolved a Wazuh agent filter that was excluding the event. Wazuh then generated an audit-failure alert (**rule 60104, level 5**).
+
+**Key lesson:** A working agent does not guarantee complete event visibility. Verify auditing, collection filters, and alert rules separately before drawing conclusions.
 
 ## Featured investigation: Active Directory identity monitoring
 
@@ -54,7 +60,7 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 ## Skills I'm developing
 
 - Security event monitoring and basic alert triage
-- Windows Security and PowerShell event investigation, including Event IDs 4625, 4104, 4720, 4727, and 4728
+- Windows Security and PowerShell event investigation, including Event IDs 4625, 4104, 4720, 4727, 4728, and 5145
 - Active Directory IAM, Windows account/group auditing, and SIEM correlation
 - Wazuh agent configuration and File Integrity Monitoring
 - Windows and Linux troubleshooting
