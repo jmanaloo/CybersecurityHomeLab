@@ -245,9 +245,46 @@ The expanded Wazuh event contained the account, Finance share path, Event ID 514
 
 ## 10. Evidence Screenshots
 
-Screenshots captured during this lab include the department OUs, NTFS and SMB permissions, Effective Access results, Windows Event 5145, and the Wazuh audit-failure alert.
+The following screenshots were captured during the controlled lab and are stored in [the Lab 07 evidence folder](07-evidence/).
 
-Image references will be added here once the evidence files are uploaded to `labs/07-evidence/`. This section intentionally does not link to files that have not yet been verified in the repository.
+### Active Directory structure and permissions
+
+![Department organizational units](07-evidence/01-department-ous.png)
+*Figure 1 — IT, HR, and Finance organizational units.*
+
+![HR NTFS permissions](07-evidence/02-hr-ntfs-permissions.png)
+*Figure 2 — HR STAFF permissions on the HR folder.*
+
+![Finance NTFS permissions](07-evidence/03-finance-ntfs-permissions.png)
+*Figure 3 — Finance-staff permissions on the Finance folder.*
+
+![Mark's effective access to HR](07-evidence/04-mark-effective-access-denied.png)
+*Figure 4 — Effective Access assessment showing Mark's restricted HR permissions.*
+
+![Finance share verification](07-evidence/05-finance-share-verified.png)
+*Figure 5 — Finance share path and SMB permissions verified using `net share`.*
+
+### Windows Security event evidence
+
+![Event 5145 account information](07-evidence/06-event-5145-account.png)
+*Figure 6 — Event 5145 identifies the account involved in the access attempt.*
+
+![Event 5145 denied access checks](07-evidence/07-event-5145-denied-permissions.png)
+*Figure 7 — Access checks report that the requested permissions were not granted.*
+
+### Wazuh collection and alert verification
+
+![Corrected Wazuh Security event filter](07-evidence/08-wazuh-filter-corrected.png)
+*Figure 8 — The Wazuh agent Security event filter after removing the Event 5145 exclusion.*
+
+![Wazuh audit-failure alert](07-evidence/09-wazuh-alert.png)
+*Figure 9 — Wazuh Threat Hunting displays the audit-failure alert.*
+
+![Wazuh event details](07-evidence/10-wazuh-event-details.png)
+*Figure 10 — Decoded Event 5145 fields identify Anna and the Finance share.*
+
+![Wazuh rule details](07-evidence/11-wazuh-rule-details.png)
+*Figure 11 — Wazuh rule 60104, severity level 5, and audit-failure classification.*
 
 ## Conclusion
 
