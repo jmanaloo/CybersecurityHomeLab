@@ -222,15 +222,25 @@ The dashboard returned **one matching alert** from the controlled test.
 
 ## 10. Evidence Screenshots
 
-Evidence captured during the lab (to be uploaded into the [Lab 08 evidence folder](08-evidence/)):
+The following screenshots were captured during the controlled lab and are stored in the [Lab 08 evidence folder](08-evidence/).
 
-| Planned file | Evidence |
-|---|---|
-| `01-custom-rule-configuration.png` | `local_rules.xml` showing rule `100100`, parent rule, Event 5145 and Finance share matching |
-| `02-custom-alert.png` | Wazuh Threat Hunting showing rule `100100`, level 10, description and `AD-DC01` |
-| `03-alert-event-details.png` | Expanded event showing `CORP\anna`, Finance share, Event 5145 and `AUDIT_FAILURE` |
+### Custom detection configuration
 
-Image embeds can be added once the files are uploaded, to avoid broken image links.
+![Custom Wazuh rule 100100 configuration](08-evidence/01-custom-rule-configuration.png)
+
+*Figure 1 — Custom rule 100100 in `local_rules.xml`, inheriting from rule 60104 and matching Event 5145 on the Finance share.*
+
+### Successful alert generation
+
+![Wazuh Threat Hunting custom alert](08-evidence/02-custom-alert.png)
+
+*Figure 2 — Wazuh Threat Hunting shows one alert from AD-DC01: custom rule 100100, level 10, with the restricted Finance share access description.*
+
+### Event investigation details
+
+![Expanded Wazuh event details](08-evidence/03-alert-event-details.png)
+
+*Figure 3 — The expanded alert records Event 5145, the CORP\\anna account, the Finance share, and AUDIT_FAILURE.*
 
 ## Conclusion
 
