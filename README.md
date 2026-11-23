@@ -31,6 +31,13 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [06 — Active Directory IAM Monitoring](labs/06-active-directory-iam-monitoring.md) | Identity management and SIEM detection | Deploying a domain controller, auditing user/group changes, and verifying Wazuh detections for Events 4720 and 4728 |
 | [07 — AD RBAC & File Share Monitoring](labs/07-active-directory-rbac-file-share-monitoring.md) | Access control and SIEM investigation | Restricting departmental SMB shares, investigating Event 5145, and fixing a Wazuh collection exclusion |
 | [08 — Custom Wazuh Detection Rules](labs/08-custom-wazuh-detection-rules.md) | Detection engineering and rule validation | Creating rule 100100, troubleshooting a decoder mismatch, and validating a level 10 alert for denied Finance-share access |
+| [09 — SOC Alert Triage & Investigation](labs/09-soc-alert-triage-investigation.md) | Windows authentication investigation | Investigating 10 failed Administrator logons, correlating 23 successful-logon alerts, and practicing evidence-based incident disposition and escalation |
+
+## Featured investigation: SOC authentication alert triage
+
+In [Lab 09](labs/09-soc-alert-triage-investigation.md), I investigated **10 failed Administrator logons (Event 4625)** on AD-DC01, searched for related successful logons (**23 Event 4624 hits** across seven days), and examined a workstation unlock (logon type 7). I practiced writing conditional incident dispositions for hypothetical administrator confirmation versus denial, clearly separating observed events from simulated interview scenarios.
+
+**Key lesson:** Authentication alerts require event correlation, logon-type context, careful evidence handling, and willingness to revise conclusions when new information emerges.
 
 ## Featured investigation: Custom Wazuh detection engineering
 
