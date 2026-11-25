@@ -32,6 +32,13 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [07 — AD RBAC & File Share Monitoring](labs/07-active-directory-rbac-file-share-monitoring.md) | Access control and SIEM investigation | Restricting departmental SMB shares, investigating Event 5145, and fixing a Wazuh collection exclusion |
 | [08 — Custom Wazuh Detection Rules](labs/08-custom-wazuh-detection-rules.md) | Detection engineering and rule validation | Creating rule 100100, troubleshooting a decoder mismatch, and validating a level 10 alert for denied Finance-share access |
 | [09 — SOC Alert Triage & Investigation](labs/09-soc-alert-triage-investigation.md) | Windows authentication investigation | Investigating 10 failed Administrator logons, correlating 23 successful-logon alerts, and practicing evidence-based incident disposition and escalation |
+| [10 — Brute-Force Attack Investigation](labs/10-brute-force-investigation.md) | SOC investigation and incident response | Comparing a simulated critical exfiltration incident with actual Wazuh authentication correlation and documenting analyst development |
+
+## Featured investigation: Brute-force investigation and analyst development
+
+In [Lab 10](labs/10-brute-force-investigation.md), I completed a simulated privileged-account compromise and exfiltration investigation, then examined actual Wazuh alerts: 11 failed logons, 23 successful-logon hits and selected account-management events. Matching local authentication context supported a likely benign password retry, pending owner verification. The report records containment recommendations, investigation limitations and how I refined my reasoning through feedback.
+
+**Key lesson:** Suspicion warrants investigation; risk warrants escalation; evidence warrants conclusions.
 
 ## Featured investigation: SOC authentication alert triage
 
