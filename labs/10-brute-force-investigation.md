@@ -104,6 +104,28 @@ Informal coaching assessments: simulated exercise 84/100 (revised after clarifyi
 
 **Key lesson:** Suspicion warrants investigation; risk warrants escalation; evidence warrants conclusions.
 
-## Evidence inventory
+## Practical investigation evidence
 
-Screenshots captured during the practical exercise: 4625 search results, expanded failed event, 4624 search results, expanded successful event, account-management search results and expanded 4728 event. Binary screenshot upload remains pending; no image links are claimed until files are uploaded.
+### 1. Failed authentication search results
+
+![Failed authentication search results](10-evidence/01-failed-logon-results.png)
+
+### 2. Expanded Event 4625
+
+![Expanded Event 4625](10-evidence/02-failed-logon-details.png)
+
+### 3. Successful authentication search results
+
+![Successful authentication search results](10-evidence/03-successful-logon-results.png)
+
+### 4. Expanded Event 4624
+
+![Expanded Event 4624](10-evidence/04-successful-logon-details.png)
+
+### 5. Account management search results
+
+![Account management search results](10-evidence/05-account-management-results.png)
+
+### 6. Expanded Event 4728
+
+![Expanded Event 4728](10-evidence/06-group-membership-details.png)
