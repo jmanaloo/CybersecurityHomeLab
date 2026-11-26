@@ -33,6 +33,13 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [08 — Custom Wazuh Detection Rules](labs/08-custom-wazuh-detection-rules.md) | Detection engineering and rule validation | Creating rule 100100, troubleshooting a decoder mismatch, and validating a level 10 alert for denied Finance-share access |
 | [09 — SOC Alert Triage & Investigation](labs/09-soc-alert-triage-investigation.md) | Windows authentication investigation | Investigating 10 failed Administrator logons, correlating 23 successful-logon alerts, and practicing evidence-based incident disposition and escalation |
 | [10 — Brute-Force Attack Investigation](labs/10-brute-force-investigation.md) | SOC investigation and incident response | Comparing a simulated critical exfiltration incident with actual Wazuh authentication correlation and documenting analyst development |
+| [11 — PowerShell Threat Investigation](labs/11-powershell-threat-investigation.md) | SOC investigation and monitoring RCA | Simulated phishing triage, restoring PowerShell telemetry on AD-DC01, and validating built-in rule 91843 from endpoint to dashboard |
+
+## Featured investigation: PowerShell threat investigation and monitoring RCA
+
+In [Lab 11](labs/11-powershell-threat-investigation.md), I investigated a simulated phishing incident and then resolved practical PowerShell monitoring gaps on AD-DC01. I verified Windows Event 4104 (records 622 and 627), raw event reception, and a benign pattern-based alert (rule 91843, record 632). The write-up documents unsuccessful tests, configuration corrections, evidence limitations and analyst development.
+
+**Key lesson:** A configured monitoring component is not necessarily a validated detection. Test the entire pipeline and distinguish events, alerts and actual impact.
 
 ## Featured investigation: Brute-force investigation and analyst development
 
