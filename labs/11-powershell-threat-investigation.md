@@ -9,9 +9,9 @@ Investigate suspicious PowerShell behavior, practice escalation and containment 
 
 ## Part A — Simulated phishing investigation
 
-This was a guided fictional SOC scenario, not a real compromise. The scenario involved a Word document opened by Anna, suspicious encoded PowerShell, network discovery, file creation/download activity, external communication and possible persistence or credential collection. I recommended escalation to the SOC lead, continued investigation and authorized endpoint isolation. The exercise described 12 targeted emails, one compromised endpoint, another endpoint without established compromise and nine remaining under observation; email and endpoint counts should not be treated as interchangeable.
+This was a guided fictional SOC scenario, not a real compromise. The scenario involved a Word document opened by Anna, suspicious encoded PowerShell, network discovery, file creation/download activity, external communication and possible persistence or credential collection. I recommended escalation to the SOC lead, continued investigation and authorized endpoint isolation. The exercise described 12 targeted emails, two confirmed infected endpoints (HR-PC01 and HR-PC04), HR-PC07 under investigation and nine endpoints with no related detections so far; email and endpoint counts should not be treated as interchangeable.
 
-My final simulated classification was phishing and persistence, Critical severity, with the incident remaining open pending containment and higher-tier review. Critical was a scenario-specific judgment based on potential organizational impact, not proof that all endpoints were compromised. Initial access was suspected to involve the document; the exact delivery and execution mechanism required further evidence. HTTPS alone did not establish legitimacy or maliciousness. File creation and network connectivity did not establish data theft. An endpoint without observed indicators was not necessarily safe.
+My final simulated classification was phishing and persistence, Critical severity, with the incident remaining open pending containment and higher-tier review. Instructor feedback: High was better supported by the supplied evidence; Critical was my initial assessment. No lateral movement, exfiltration or privileged compromise was identified in the scenario. Initial access was suspected to involve the document; the exact delivery and execution mechanism required further evidence. HTTPS alone did not establish legitimacy or maliciousness. File creation and network connectivity did not establish data theft. An endpoint without observed indicators was not necessarily safe.
 
 Recommended response: preserve email, endpoint and network evidence; isolate confirmed affected endpoints with authorization; investigate other recipients, quarantine malicious messages, assess credential exposure and coordinate password/session remediation where warranted. Confirm scope, eradication and recovery before closure. No actual attack or containment occurred in this part.
 
@@ -157,4 +157,30 @@ This exercise reinforced end-to-end validation, evidence correlation, competing 
 
 ## Evidence
 
-Screenshots were captured during the exercise, including policy verification, Windows record 622, raw archive record 627, rule 91843 configuration, dashboard hit and expanded record 632. Screenshot upload is pending; no unverified image links are included.
+All 21 evidence screenshots are available in [11-evidence](11-evidence/). The sequence records initial failures, configuration changes and final validation.
+
+- [01 initial dashboard no results](11-evidence/01-initial-dashboard-no-results.png)
+- [02 historical windows 4104](11-evidence/02-historical-windows-4104.png)
+- [03 agent localfile configuration](11-evidence/03-agent-localfile-configuration.png)
+- [04 agent service running](11-evidence/04-agent-service-running.png)
+- [05 agent channel recognition](11-evidence/05-agent-channel-recognition.png)
+- [06 logging policy registry missing](11-evidence/06-logging-policy-registry-missing.png)
+- [07 group policy not configured](11-evidence/07-group-policy-not-configured.png)
+- [08 group policy refresh](11-evidence/08-group-policy-refresh.png)
+- [09 logging policy enabled](11-evidence/09-logging-policy-enabled.png)
+- [10 fresh 4104 records](11-evidence/10-fresh-4104-records.png)
+- [11 windows record 622](11-evidence/11-windows-record-622.png)
+- [12 archiving disabled](11-evidence/12-archiving-disabled.png)
+- [13 json archiving enabled](11-evidence/13-json-archiving-enabled.png)
+- [14 manager active](11-evidence/14-manager-active.png)
+- [15 raw event record 627](11-evidence/15-raw-event-record-627.png)
+- [16 dashboard no alert](11-evidence/16-dashboard-no-alert.png)
+- [17 investigator sudo alert](11-evidence/17-investigator-sudo-alert.png)
+- [18 refined alert search empty](11-evidence/18-refined-alert-search-empty.png)
+- [19 builtin rule 91843](11-evidence/19-builtin-rule-91843.png)
+- [20 dashboard detection hit](11-evidence/20-dashboard-detection-hit.png)
+- [21 expanded alert record 632](11-evidence/21-expanded-alert-record-632.png)
+
+### Final detection evidence
+
+![Expanded Event 4104, record 632](11-evidence/21-expanded-alert-record-632.png)
