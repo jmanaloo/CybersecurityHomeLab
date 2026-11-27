@@ -17,9 +17,9 @@ My professional background is in real-time workforce monitoring, where I work wi
 | Windows Event Viewer and PowerShell | Event validation and endpoint troubleshooting |
 | Linux service and network tools | Checking processes, service status, logs, and listening ports |
 
-All tests described here are performed in my own home-lab environment, not on production systems.
+Practical tests are performed in my own home-lab environment, not on production systems. Guided fictional SOC exercises are explicitly labeled as simulations.
 
-## Hands-on lab journal
+## Lab and SOC training journal
 
 | Lab | Focus | What I practiced |
 | --- | --- | --- |
@@ -34,6 +34,13 @@ All tests described here are performed in my own home-lab environment, not on pr
 | [09 — SOC Alert Triage & Investigation](labs/09-soc-alert-triage-investigation.md) | Windows authentication investigation | Investigating 10 failed Administrator logons, correlating 23 successful-logon alerts, and practicing evidence-based incident disposition and escalation |
 | [10 — Brute-Force Attack Investigation](labs/10-brute-force-investigation.md) | SOC investigation and incident response | Comparing a simulated critical exfiltration incident with actual Wazuh authentication correlation and documenting analyst development |
 | [11 — PowerShell Threat Investigation](labs/11-powershell-threat-investigation.md) | SOC investigation and monitoring RCA | Simulated phishing triage, restoring PowerShell telemetry on AD-DC01, and validating built-in rule 91843 from endpoint to dashboard |
+| [12 — SOC Incident Reporting, Ticketing & Escalation](labs/12-soc-incident-reporting-escalation.md) | SOC communication and analyst development | Guided incident reporting, evidence timelines, severity justification, L2 handover and final disposition |
+
+## Analyst development — evidence of learning progression
+
+I use feedback from each investigation to identify and practice specific development areas. In [Lab 12](labs/12-soc-incident-reporting-escalation.md), I focused on the technical communication gaps identified in Lab 11. My initial summary scored 60/100, my evidence timeline 85/100, and my structured L2 escalation 89/100 under informal AI coaching rubrics. I demonstrated more complete reporting, clearer uncertainty, and separation of completed and pending containment actions. Severity calibration remains a development priority.
+
+**For employers:** Lab 12 includes my original responses, feedback, and clearly labeled coached revisions, including a sample L2 handover. It demonstrates responsiveness to feedback and transferable RTA escalation and RCA skills, not production SOC experience. Scores are subjective, task-specific coaching assessments rather than certifications or independent competency measurements.
 
 ## Featured investigation: PowerShell threat investigation and monitoring RCA
 
@@ -96,6 +103,7 @@ The exercise also involved troubleshooting a disconnected agent. I checked servi
 - Network/service diagnostics and log review
 - Evidence-based investigation notes and alert disposition
 - Clear documentation of findings, limitations, and next steps
+- Structured SOC incident tickets, evidence timelines, L2 escalation and incident disposition (simulated exercises)
 
 ## How I document each lab
 
