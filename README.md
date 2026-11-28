@@ -35,12 +35,27 @@ Practical tests are performed in my own home-lab environment, not on production 
 | [10 — Brute-Force Attack Investigation](labs/10-brute-force-investigation.md) | SOC investigation and incident response | Comparing a simulated critical exfiltration incident with actual Wazuh authentication correlation and documenting analyst development |
 | [11 — PowerShell Threat Investigation](labs/11-powershell-threat-investigation.md) | SOC investigation and monitoring RCA | Simulated phishing triage, restoring PowerShell telemetry on AD-DC01, and validating built-in rule 91843 from endpoint to dashboard |
 | [12 — SOC Incident Reporting, Ticketing & Escalation](labs/12-soc-incident-reporting-escalation.md) | SOC communication and analyst development | Guided incident reporting, evidence timelines, severity justification, L2 handover and final disposition |
+| [13 — Mock SOC Shift & Independent Incident Investigation](labs/13-mock-soc-shift.md) | Concurrent alert triage and major incident correlation | Managing four simulated alerts, correlating privileged account compromise and ransomware, and preparing shift handover |
 
 ## Analyst development — evidence of learning progression
 
 I use feedback from each investigation to identify and practice specific development areas. In [Lab 12](labs/12-soc-incident-reporting-escalation.md), I focused on the technical communication gaps identified in Lab 11. My initial summary scored 60/100, my evidence timeline 85/100, and my structured L2 escalation 89/100 under informal AI coaching rubrics. I demonstrated more complete reporting, clearer uncertainty, and separation of completed and pending containment actions. Severity calibration remains a development priority.
 
 **For employers:** Lab 12 includes my original responses, feedback, and clearly labeled coached revisions, including a sample L2 handover. It demonstrates responsiveness to feedback and transferable RTA escalation and RCA skills, not production SOC experience. Scores are subjective, task-specific coaching assessments rather than certifications or independent competency measurements.
+
+### Latest progression: Lab 13 — Mock SOC shift
+
+In [Lab 13](labs/13-mock-soc-shift.md), I managed four simulated alerts, closed two verified benign alerts and correlated two into one Critical major incident. I independently distinguished severity from urgency, prioritized an active ransomware threat over a partially contained incident, linked the incidents through a shared endpoint and unauthorized account, and recommended containment validation before recovery.
+
+| Development area | Demonstrated progression |
+| --- | --- |
+| Severity and urgency | Reprioritized active risk without downgrading an existing incident |
+| Incident correlation | Linked privileged account activity and ransomware using account and endpoint evidence |
+| Queue management | Managed four alerts with evolving evidence and priorities |
+| Containment | Recommended validation and scope checks before recovery |
+| Reporting | Identified correct handover priorities; continuing to improve completeness and technical precision |
+
+The write-up includes original responses, summarized early checkpoints, coaching feedback and a labeled assisted handover example. Qualitative AI coaching identified six independently demonstrated competencies at relevant checkpoints and five developing areas; feedback was provided between checkpoints. This is simulated training, not independent professional certification or production SOC experience.
 
 ## Featured investigation: PowerShell threat investigation and monitoring RCA
 
